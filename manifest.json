@@ -1,20 +1,26 @@
 {
   "name": "Meu Treino",
   "short_name": "Treino",
-  "description": "Aplicativo mobile para acompanhar séries e descansos.",
+  "description": "Acompanhe seus exercícios, séries e descansos.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1120",
-  "theme_color": "#111827",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "lang": "pt-BR",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "./icons/apple-touch-icon.png",
-      "sizes": "180x180",
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

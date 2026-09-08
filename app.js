@@ -1,21 +1,6 @@
 "use strict";
 
-/*
-  Meu Treino
-  Aplicativo em HTML, CSS e JavaScript puro.
-
-  Para modificar os treinos, edite o objeto WORKOUTS abaixo.
-
-  Cada exercício possui:
-  - name: nome
-  - sets: quantidade de séries exibidas
-  - reps: repetições ou duração
-  - rest: descanso em segundos
-  - technique: técnica aplicada
-  - tip: lembrete da execução
-*/
-
-const STORAGE_KEY = "meu-treino-github-pages-v1";
+const STORAGE_KEY = "meu-treino-liquid-glass-v1";
 const THEME_KEY = "meu-treino-theme";
 
 const DAYS = [
@@ -29,11 +14,11 @@ const DAYS = [
 ];
 
 const DAY_LABELS = {
-  segunda: "Segunda-feira",
-  terca: "Terça-feira",
-  quarta: "Quarta-feira",
-  quinta: "Quinta-feira",
-  sexta: "Sexta-feira",
+  segunda: "Segunda",
+  terca: "Terça",
+  quarta: "Quarta",
+  quinta: "Quinta",
+  sexta: "Sexta",
   sabado: "Sábado",
   domingo: "Domingo"
 };
@@ -41,6 +26,7 @@ const DAY_LABELS = {
 const WORKOUTS = {
   segunda: {
     title: "Peito, ombros e tríceps",
+    subtitle: "Empurradas fortes, controle e técnica.",
     exercises: [
       {
         name: "Supino reto com barra",
@@ -48,7 +34,7 @@ const WORKOUTS = {
         reps: "1×5–8 + 3×8–10",
         rest: 210,
         technique: "Top set + back-off",
-        tip: "Faça 1 série pesada. Reduza 8–12% e faça 3 back-offs."
+        tip: "Uma série pesada; depois reduza 8–12% da carga."
       },
       {
         name: "Supino inclinado com barra",
@@ -56,7 +42,7 @@ const WORKOUTS = {
         reps: "6–12",
         rest: 150,
         technique: "Pirâmide crescente",
-        tip: "Aumente a carga gradualmente sem perder a técnica."
+        tip: "Aumente a carga sem perder a amplitude."
       },
       {
         name: "Supino sentado na máquina",
@@ -80,29 +66,30 @@ const WORKOUTS = {
         reps: "10–20",
         rest: 75,
         technique: "Pausa + drop set",
-        tip: "Pause no topo. Faça drop set apenas na última."
+        tip: "Pause no topo; drop set somente na última."
       },
       {
         name: "Tríceps testa",
         sets: 3,
         reps: "8–12",
         rest: 120,
-        technique: "Excêntrica de 3 segundos",
-        tip: "Controle a descida por aproximadamente 3 segundos."
+        technique: "Excêntrica de 3 s",
+        tip: "Controle a descida durante 3 segundos."
       },
       {
-        name: "Tríceps acima da cabeça na polia",
+        name: "Tríceps acima da cabeça",
         sets: 3,
         reps: "10–15",
         rest: 105,
-        technique: "Rest-pause na última",
-        tip: "Descanse 15–20 segundos e faça 3–5 reps."
+        technique: "Rest-pause",
+        tip: "Descanse 15–20 s e faça 3–5 repetições."
       }
     ]
   },
 
   terca: {
     title: "Costas, bíceps e panturrilhas",
+    subtitle: "Puxe com controle e construa densidade.",
     exercises: [
       {
         name: "Puxada alta, pegada fechada",
@@ -110,7 +97,7 @@ const WORKOUTS = {
         reps: "6–12",
         rest: 150,
         technique: "Progressão dupla",
-        tip: "Ao fazer 12 reps em todas, aumente a carga."
+        tip: "Ao alcançar 12 repetições em todas, aumente a carga."
       },
       {
         name: "Remada T",
@@ -118,7 +105,7 @@ const WORKOUTS = {
         reps: "1×6–8 + 4×8–10",
         rest: 180,
         technique: "Top set + back-off",
-        tip: "Faça uma série pesada e depois reduza a carga."
+        tip: "Evite falha absoluta para preservar a técnica."
       },
       {
         name: "Remada unilateral",
@@ -141,7 +128,7 @@ const WORKOUTS = {
         sets: 3,
         reps: "15–25",
         rest: 75,
-        technique: "Contração de 1–2 segundos",
+        technique: "Contração de 1–2 s",
         tip: "Use carga moderada e movimento preciso."
       },
       {
@@ -157,8 +144,8 @@ const WORKOUTS = {
         sets: 3,
         reps: "8–15",
         rest: 105,
-        technique: "Rest-pause na última",
-        tip: "Descanse 15–20 segundos e faça 3–5 reps."
+        technique: "Rest-pause",
+        tip: "Descanse 15–20 s na última série."
       },
       {
         name: "Panturrilha sentada",
@@ -166,20 +153,21 @@ const WORKOUTS = {
         reps: "10–20",
         rest: 90,
         technique: "Alongamento + contração",
-        tip: "2 segundos embaixo e 1 segundo no topo."
+        tip: "2 s embaixo e 1 s no topo."
       }
     ]
   },
 
   quarta: {
     title: "Braços, deltoide posterior e panturrilhas",
+    subtitle: "Volume de qualidade para braços e ombros.",
     exercises: [
       {
         name: "Rosca inclinada com halteres",
         sets: 4,
         reps: "8–12",
         rest: 120,
-        technique: "Excêntrica de 3 segundos",
+        technique: "Excêntrica de 3 s",
         tip: "Controle a descida."
       },
       {
@@ -188,7 +176,7 @@ const WORKOUTS = {
         reps: "10–15",
         rest: 90,
         technique: "Pico + drop set",
-        tip: "Segure 2 segundos no pico. Drop set na última."
+        tip: "Segure 2 s no pico da contração."
       },
       {
         name: "Tríceps na polia",
@@ -212,10 +200,10 @@ const WORKOUTS = {
         reps: "10–15",
         rest: 120,
         technique: "Myo-reps",
-        tip: "Série principal + 15 segundos + mini-séries."
+        tip: "Série principal + 15 s + mini-séries."
       },
       {
-        name: "Elevação posterior com halteres",
+        name: "Elevação posterior",
         sets: 4,
         reps: "12–20",
         rest: 90,
@@ -227,7 +215,7 @@ const WORKOUTS = {
         sets: 3,
         reps: "12–20",
         rest: 90,
-        technique: "Pausa de 2 segundos",
+        technique: "Pausa de 2 s",
         tip: "Segure na contração."
       },
       {
@@ -236,14 +224,14 @@ const WORKOUTS = {
         reps: "20–25",
         rest: 75,
         technique: "Controle técnico",
-        tip: "Faça apenas se ainda houver boa execução."
+        tip: "Movimento leve e preciso."
       },
       {
         name: "Panturrilha unilateral",
         sets: 6,
         reps: "10–15 por lado",
         rest: 75,
-        technique: "Rest-pause na última",
+        technique: "Rest-pause",
         tip: "Pausa curta e repetições controladas."
       }
     ]
@@ -251,6 +239,7 @@ const WORKOUTS = {
 
   quinta: {
     title: "Pernas e panturrilhas",
+    subtitle: "Força, amplitude e execução limpa.",
     exercises: [
       {
         name: "Agachamento livre",
@@ -258,7 +247,7 @@ const WORKOUTS = {
         reps: "1×6–8 + 3×8–10",
         rest: 240,
         technique: "Top set + back-off",
-        tip: "Sem falha absoluta. Priorize a técnica."
+        tip: "Sem falha absoluta; priorize estabilidade."
       },
       {
         name: "Leg press 45°",
@@ -273,7 +262,7 @@ const WORKOUTS = {
         sets: 4,
         reps: "6–10",
         rest: 180,
-        technique: "Excêntrica de 3 segundos",
+        technique: "Excêntrica de 3 s",
         tip: "Coluna neutra e RIR 1–2."
       },
       {
@@ -282,29 +271,30 @@ const WORKOUTS = {
         reps: "8–15",
         rest: 105,
         technique: "Drop set duplo",
-        tip: "Drop duplo somente na última série."
+        tip: "Use o drop duplo somente na última."
       },
       {
         name: "Cadeira extensora",
         sets: 4,
         reps: "10–20",
         rest: 90,
-        technique: "Drop set na última",
-        tip: "Reduza 25–30% da carga e continue."
+        technique: "Drop set",
+        tip: "Reduza 25–30% da carga na última."
       },
       {
         name: "Panturrilha em pé",
         sets: 5,
         reps: "8–15",
         rest: 105,
-        technique: "Rest-pause na última",
-        tip: "2 segundos no alongamento e 1 segundo no topo."
+        technique: "Rest-pause",
+        tip: "2 s no alongamento e 1 s no topo."
       }
     ]
   },
 
   sexta: {
     title: "Ombros e abdômen",
+    subtitle: "Deltoides fortes e core estável.",
     exercises: [
       {
         name: "Desenvolvimento com barra",
@@ -323,12 +313,12 @@ const WORKOUTS = {
         tip: "Última série em RIR 0–1 se não houver dor."
       },
       {
-        name: "Elevação lateral na máquina ou polia",
+        name: "Elevação lateral",
         sets: 5,
         reps: "12–20",
         rest: 75,
         technique: "Pausa + drop set",
-        tip: "Pause no topo. Drop set na última."
+        tip: "Pause no topo; drop set na última."
       },
       {
         name: "Elevação lateral inclinada",
@@ -336,14 +326,14 @@ const WORKOUTS = {
         reps: "12–20",
         rest: 75,
         technique: "Parciais alongadas",
-        tip: "Parciais somente após reps completas."
+        tip: "Parciais somente depois das reps completas."
       },
       {
         name: "Crucifixo inverso na máquina",
         sets: 3,
         reps: "15–25",
         rest: 75,
-        technique: "Pausa de 2 segundos",
+        technique: "Pausa de 2 s",
         tip: "Segure no pico da contração."
       },
       {
@@ -365,7 +355,7 @@ const WORKOUTS = {
       {
         name: "Prancha",
         sets: 4,
-        reps: "30–60 segundos",
+        reps: "30–60 s",
         rest: 90,
         technique: "Progressão de tempo",
         tip: "Mantenha o corpo alinhado."
@@ -375,11 +365,13 @@ const WORKOUTS = {
 
   sabado: {
     title: "Descanso ou cardio leve",
+    subtitle: "Recupere-se para treinar melhor.",
     exercises: []
   },
 
   domingo: {
     title: "Descanso",
+    subtitle: "Recuperação completa.",
     exercises: []
   }
 };
@@ -398,30 +390,36 @@ const state = {
   }
 };
 
+const $ = (selector) => document.querySelector(selector);
+
 const elements = {
-  tabs: document.querySelector("#dayTabs"),
-  title: document.querySelector("#selectedDayTitle"),
-  progressText: document.querySelector("#dayProgressText"),
-  progressPercent: document.querySelector("#progressPercent"),
-  progressRing: document.querySelector("#progressRing"),
-  workoutList: document.querySelector("#workoutList"),
-  resetDayButton: document.querySelector("#resetDayButton"),
-  restBanner: document.querySelector("#restBanner"),
-  timerDisplay: document.querySelector("#timerDisplay"),
-  timerStatus: document.querySelector("#timerStatus"),
-  startTimerButton: document.querySelector("#startTimerButton"),
-  pauseTimerButton: document.querySelector("#pauseTimerButton"),
-  resumeTimerButton: document.querySelector("#resumeTimerButton"),
-  restartTimerButton: document.querySelector("#restartTimerButton"),
-  skipTimerButton: document.querySelector("#skipTimerButton"),
-  notificationPermissionButton: document.querySelector(
-    "#notificationPermissionButton"
-  ),
-  vibrationToggle: document.querySelector("#vibrationToggle"),
-  dayNotes: document.querySelector("#dayNotes"),
-  notificationMessage: document.querySelector("#notificationMessage"),
-  toast: document.querySelector("#toast"),
-  themeToggle: document.querySelector("#themeToggle")
+  tabs: $("#dayTabs"),
+  selectedDayTitle: $("#selectedDayTitle"),
+  sessionSubtitle: $("#sessionSubtitle"),
+  progressRing: $("#progressRing"),
+  progressPercent: $("#progressPercent"),
+  dayProgressText: $("#dayProgressText"),
+  exerciseProgressText: $("#exerciseProgressText"),
+  sessionStatus: $("#sessionStatus"),
+  workoutList: $("#workoutList"),
+  timerCard: $("#timerCard"),
+  timerExercise: $("#timerExercise"),
+  timerStateBadge: $("#timerStateBadge"),
+  timerDisplay: $("#timerDisplay"),
+  timerProgress: $("#timerProgress"),
+  timerMessage: $("#timerMessage"),
+  pauseTimerButton: $("#pauseTimerButton"),
+  resumeTimerButton: $("#resumeTimerButton"),
+  restartTimerButton: $("#restartTimerButton"),
+  skipTimerButton: $("#skipTimerButton"),
+  resetDayButton: $("#resetDayButton"),
+  dayNotes: $("#dayNotes"),
+  vibrationToggle: $("#vibrationToggle"),
+  notificationPermissionButton: $("#notificationPermissionButton"),
+  notificationMessage: $("#notificationMessage"),
+  themeToggle: $("#themeToggle"),
+  themeIcon: $("#themeIcon"),
+  toast: $("#toast")
 };
 
 let timerInterval = null;
@@ -449,7 +447,7 @@ function loadState() {
       };
     }
   } catch {
-    showToast("Não foi possível restaurar os dados salvos.");
+    showToast("Não foi possível restaurar os dados.");
   }
 
   elements.vibrationToggle.checked = state.vibration;
@@ -458,19 +456,14 @@ function loadState() {
 function saveState() {
   localStorage.setItem(
     STORAGE_KEY,
-    JSON.stringify({
-      selectedDay: state.selectedDay,
-      completed: state.completed,
-      notes: state.notes,
-      vibration: state.vibration,
-      timer: state.timer
-    })
+    JSON.stringify(state)
   );
 }
 
 function getWorkout(day = state.selectedDay) {
   return WORKOUTS[day] || {
     title: "Descanso",
+    subtitle: "",
     exercises: []
   };
 }
@@ -479,16 +472,18 @@ function getSetKey(day, exerciseIndex, setIndex) {
   return `${day}-${exerciseIndex}-${setIndex}`;
 }
 
-function isSetCompleted(day, exerciseIndex, setIndex) {
+function isCompleted(day, exerciseIndex, setIndex) {
   return Boolean(
-    state.completed[getSetKey(day, exerciseIndex, setIndex)]
+    state.completed[
+      getSetKey(day, exerciseIndex, setIndex)
+    ]
   );
 }
 
-function setCompleted(day, exerciseIndex, setIndex, completed) {
+function updateSet(day, exerciseIndex, setIndex, value) {
   const key = getSetKey(day, exerciseIndex, setIndex);
 
-  if (completed) {
+  if (value) {
     state.completed[key] = true;
   } else {
     delete state.completed[key];
@@ -497,63 +492,67 @@ function setCompleted(day, exerciseIndex, setIndex, completed) {
   saveState();
 }
 
-function getDayProgress(day = state.selectedDay) {
+function getProgress(day = state.selectedDay) {
   const workout = getWorkout(day);
 
-  let total = 0;
-  let completed = 0;
+  let totalSets = 0;
+  let completedSets = 0;
+  let totalExercises = workout.exercises.length;
+  let completedExercises = 0;
 
   workout.exercises.forEach((exercise, exerciseIndex) => {
-    total += exercise.sets;
+    let exerciseCompleted = 0;
 
-    for (let setIndex = 0; setIndex < exercise.sets; setIndex++) {
-      if (isSetCompleted(day, exerciseIndex, setIndex)) {
-        completed++;
+    totalSets += exercise.sets;
+
+    for (
+      let setIndex = 0;
+      setIndex < exercise.sets;
+      setIndex++
+    ) {
+      if (isCompleted(day, exerciseIndex, setIndex)) {
+        completedSets++;
+        exerciseCompleted++;
       }
+    }
+
+    if (exerciseCompleted === exercise.sets) {
+      completedExercises++;
     }
   });
 
   return {
-    total,
-    completed,
-    percent: total === 0
-      ? 0
-      : Math.round((completed / total) * 100)
+    totalSets,
+    completedSets,
+    totalExercises,
+    completedExercises,
+    percent: totalSets
+      ? Math.round((completedSets / totalSets) * 100)
+      : 0
   };
 }
 
 function formatTime(seconds) {
-  const safeSeconds = Math.max(0, Math.ceil(seconds));
-  const minutes = Math.floor(safeSeconds / 60);
-  const remainingSeconds = safeSeconds % 60;
+  const safe = Math.max(0, Math.ceil(seconds));
+  const minutes = Math.floor(safe / 60);
+  const remaining = safe % 60;
 
   return `${String(minutes).padStart(2, "0")}:${String(
-    remainingSeconds
+    remaining
   ).padStart(2, "0")}`;
 }
 
 function formatRest(seconds) {
   if (seconds >= 60) {
     const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
+    const remaining = seconds % 60;
 
-    if (remainingSeconds === 0) {
-      return `${minutes} min`;
-    }
-
-    return `${minutes}m ${remainingSeconds}s`;
+    return remaining
+      ? `${minutes}m ${remaining}s`
+      : `${minutes} min`;
   }
 
   return `${seconds}s`;
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replaceAll("&", "&")
-    .replaceAll("<", "<")
-    .replaceAll(">", ">")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
 
 function showToast(message) {
@@ -564,7 +563,23 @@ function showToast(message) {
 
   toastTimeout = setTimeout(() => {
     elements.toast.classList.remove("visible");
-  }, 3500);
+  }, 3200);
+}
+
+function announce(message) {
+  elements.notificationMessage.textContent = "";
+  window.setTimeout(() => {
+    elements.notificationMessage.textContent = message;
+  }, 20);
+}
+
+function escapeHTML(value) {
+  return String(value)
+    .replaceAll("&", "&")
+    .replaceAll("<", "<")
+    .replaceAll(">", ">")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function renderTabs() {
@@ -572,7 +587,7 @@ function renderTabs() {
 
   DAYS.forEach((day) => {
     const button = document.createElement("button");
-    const progress = getDayProgress(day);
+    const progress = getProgress(day);
 
     button.type = "button";
     button.className = "day-tab";
@@ -587,7 +602,7 @@ function renderTabs() {
       button.setAttribute("aria-current", "page");
     }
 
-    if (progress.completed > 0) {
+    if (progress.completedSets > 0) {
       button.classList.add("has-progress");
     }
 
@@ -601,38 +616,58 @@ function renderTabs() {
   });
 }
 
-function renderProgress() {
-  const progress = getDayProgress();
+function renderSummary() {
+  const progress = getProgress();
   const degrees = progress.percent * 3.6;
 
-  elements.progressText.textContent =
-    `${progress.completed} de ${progress.total} séries concluídas`;
+  elements.dayProgressText.textContent =
+    `${progress.completedSets}/${progress.totalSets}`;
+
+  elements.exerciseProgressText.textContent =
+    `${progress.completedExercises}/${progress.totalExercises}`;
 
   elements.progressPercent.textContent =
     `${progress.percent}%`;
 
   elements.progressRing.style.background = `
-    radial-gradient(circle at center, var(--surface) 56%, transparent 58%),
+    radial-gradient(
+      circle at center,
+      var(--glass-strong) 61%,
+      transparent 63%
+    ),
     conic-gradient(
-      var(--success) ${degrees}deg,
-      var(--surface-3) ${degrees}deg
+      var(--accent) ${degrees}deg,
+      rgb(127 127 127 / 16%) ${degrees}deg
     )
   `;
+
+  if (progress.totalSets === 0) {
+    elements.sessionStatus.textContent = "Descanso";
+  } else if (progress.percent === 100) {
+    elements.sessionStatus.textContent = "Concluído";
+  } else if (progress.completedSets > 0) {
+    elements.sessionStatus.textContent = "Em andamento";
+  } else {
+    elements.sessionStatus.textContent = "Pronto";
+  }
 }
 
 function renderWorkout() {
   const workout = getWorkout();
 
-  elements.title.textContent = workout.title;
-  elements.workoutList.innerHTML = "";
-  elements.dayNotes.value = state.notes[state.selectedDay] || "";
+  elements.selectedDayTitle.textContent = workout.title;
+  elements.sessionSubtitle.textContent = workout.subtitle;
+  elements.dayNotes.value =
+    state.notes[state.selectedDay] || "";
 
-  if (workout.exercises.length === 0) {
+  elements.workoutList.innerHTML = "";
+
+  if (!workout.exercises.length) {
     elements.workoutList.innerHTML = `
-      <article class="exercise-card">
-        <h3>Dia de recuperação</h3>
+      <article class="exercise-card glass">
+        <h3 class="exercise-title">Dia de recuperação</h3>
         <p class="exercise-meta">
-          Use este dia para descanso, mobilidade ou cardio leve.
+          Descanse, faça mobilidade ou realize cardio leve.
         </p>
       </article>
     `;
@@ -645,14 +680,14 @@ function renderWorkout() {
     const completedCount = Array.from(
       { length: exercise.sets },
       (_, setIndex) =>
-        isSetCompleted(
+        isCompleted(
           state.selectedDay,
           exerciseIndex,
           setIndex
         )
     ).filter(Boolean).length;
 
-    card.className = "exercise-card";
+    card.className = "exercise-card glass";
 
     if (completedCount === exercise.sets) {
       card.classList.add("completed");
@@ -661,20 +696,24 @@ function renderWorkout() {
     card.innerHTML = `
       <div class="exercise-header">
         <div>
-          <h3>${escapeHtml(exercise.name)}</h3>
+          <h3 class="exercise-title">
+            ${escapeHTML(exercise.name)}
+          </h3>
+
           <p class="exercise-meta">
-            ${exercise.sets} séries · ${escapeHtml(exercise.reps)}
-            · descanso ${formatRest(exercise.rest)}
+            ${exercise.sets} séries ·
+            ${escapeHTML(exercise.reps)} ·
+            ${formatRest(exercise.rest)} descanso
           </p>
         </div>
 
         <span class="technique-label">
-          ${escapeHtml(exercise.technique)}
+          ${escapeHTML(exercise.technique)}
         </span>
       </div>
 
-      <p class="exercise-meta">
-        Lembrete: ${escapeHtml(exercise.tip)}
+      <p class="exercise-tip">
+        ${escapeHTML(exercise.tip)}
       </p>
 
       <div class="set-list"></div>
@@ -682,8 +721,12 @@ function renderWorkout() {
 
     const setList = card.querySelector(".set-list");
 
-    for (let setIndex = 0; setIndex < exercise.sets; setIndex++) {
-      const checked = isSetCompleted(
+    for (
+      let setIndex = 0;
+      setIndex < exercise.sets;
+      setIndex++
+    ) {
+      const checked = isCompleted(
         state.selectedDay,
         exerciseIndex,
         setIndex
@@ -710,7 +753,9 @@ function renderWorkout() {
 
       const status = document.createElement("span");
       status.className = "set-status";
-      status.textContent = checked ? "Concluída" : "Pendente";
+      status.textContent = checked
+        ? "Concluída"
+        : "Pendente";
 
       const restButton = document.createElement("button");
       restButton.type = "button";
@@ -719,11 +764,11 @@ function renderWorkout() {
         `Descansar ${formatRest(exercise.rest)}`;
       restButton.setAttribute(
         "aria-label",
-        `Iniciar descanso de ${formatRest(exercise.rest)}`
+        `Iniciar descanso após ${exercise.name}`
       );
 
       checkbox.addEventListener("change", () => {
-        setCompleted(
+        updateSet(
           state.selectedDay,
           exerciseIndex,
           setIndex,
@@ -732,7 +777,13 @@ function renderWorkout() {
 
         if (checkbox.checked) {
           prepareTimer(exercise);
-          showToast(`Série ${setIndex + 1} concluída.`);
+          startTimer(true);
+
+          showToast(
+            `Série ${setIndex + 1} concluída. Descanso iniciado.`
+          );
+        } else {
+          showToast("Série desmarcada.");
         }
 
         render();
@@ -740,7 +791,7 @@ function renderWorkout() {
 
       restButton.addEventListener("click", () => {
         prepareTimer(exercise);
-        startTimer();
+        startTimer(false);
       });
 
       row.append(
@@ -761,28 +812,42 @@ function renderTimer() {
   const timer = state.timer;
 
   if (!timer.duration) {
-    elements.restBanner.classList.add("hidden");
+    elements.timerCard.classList.add("hidden");
     return;
   }
 
-  elements.restBanner.classList.remove("hidden");
+  elements.timerCard.classList.remove("hidden");
+
+  elements.timerExercise.textContent =
+    timer.exerciseName || "Próxima série";
+
   elements.timerDisplay.textContent =
     formatTime(timer.remaining);
 
-  if (timer.status === "running") {
-    elements.timerStatus.textContent =
-      `Descanso de ${timer.exerciseName}`;
-  } else if (timer.status === "paused") {
-    elements.timerStatus.textContent = "Descanso pausado";
-  } else if (timer.status === "finished") {
-    elements.timerStatus.textContent = "Descanso finalizado";
-  } else {
-    elements.timerStatus.textContent =
-      `Pronto: ${timer.exerciseName}`;
-  }
+  const ratio = timer.duration
+    ? Math.max(0, Math.min(1, timer.remaining / timer.duration))
+    : 0;
 
-  elements.startTimerButton.disabled =
-    timer.status === "running";
+  elements.timerProgress.style.transform =
+    `scaleX(${ratio})`;
+
+  if (timer.status === "running") {
+    elements.timerStateBadge.textContent = "Ativo";
+    elements.timerMessage.textContent =
+      "Recupere-se. A próxima série vem logo.";
+  } else if (timer.status === "paused") {
+    elements.timerStateBadge.textContent = "Pausado";
+    elements.timerMessage.textContent =
+      "O descanso está pausado.";
+  } else if (timer.status === "finished") {
+    elements.timerStateBadge.textContent = "Finalizado";
+    elements.timerMessage.textContent =
+      "Descanso finalizado. Próxima série.";
+  } else {
+    elements.timerStateBadge.textContent = "Pronto";
+    elements.timerMessage.textContent =
+      "Prepare-se para a próxima série.";
+  }
 
   elements.pauseTimerButton.disabled =
     timer.status !== "running";
@@ -794,12 +859,12 @@ function renderTimer() {
     !timer.duration;
 
   elements.skipTimerButton.disabled =
-    !timer.duration || timer.status === "finished";
+    timer.status === "finished";
 }
 
 function render() {
   renderTabs();
-  renderProgress();
+  renderSummary();
   renderWorkout();
   renderTimer();
 }
@@ -817,9 +882,8 @@ function prepareTimer(exercise) {
   renderTimer();
 }
 
-function startTimer() {
+function startTimer(autoStarted = false) {
   if (!state.timer.duration) {
-    showToast("Selecione um exercício para iniciar o descanso.");
     return;
   }
 
@@ -836,6 +900,12 @@ function startTimer() {
   saveState();
   startTimerLoop();
   renderTimer();
+
+  if (!autoStarted) {
+    showToast("Descanso iniciado.");
+  }
+
+  announce("Descanso iniciado automaticamente.");
 }
 
 function pauseTimer() {
@@ -851,12 +921,16 @@ function pauseTimer() {
   stopTimerLoop();
   saveState();
   renderTimer();
+
+  showToast("Descanso pausado.");
 }
 
 function resumeTimer() {
   if (state.timer.status !== "paused") {
     return;
   }
+
+  unlockAudio();
 
   state.timer.status = "running";
   state.timer.endAt =
@@ -865,6 +939,8 @@ function resumeTimer() {
   saveState();
   startTimerLoop();
   renderTimer();
+
+  showToast("Descanso retomado.");
 }
 
 function restartTimer() {
@@ -879,6 +955,8 @@ function restartTimer() {
   stopTimerLoop();
   saveState();
   renderTimer();
+
+  showToast("Descanso reiniciado.");
 }
 
 function skipTimer() {
@@ -893,6 +971,8 @@ function skipTimer() {
   stopTimerLoop();
   saveState();
   finishTimer();
+
+  showToast("Descanso pulado.");
 }
 
 function updateTimer() {
@@ -926,27 +1006,29 @@ function updateTimer() {
 
 function startTimerLoop() {
   stopTimerLoop();
-  timerInterval = setInterval(updateTimer, 250);
+
+  timerInterval = window.setInterval(
+    updateTimer,
+    250
+  );
+
   updateTimer();
 }
 
 function stopTimerLoop() {
-  if (timerInterval) {
-    clearInterval(timerInterval);
+  if (timerInterval !== null) {
+    window.clearInterval(timerInterval);
     timerInterval = null;
   }
 }
 
 function finishTimer() {
   renderTimer();
-
   playAlertSound();
   vibrateDevice();
   notifyRestFinished();
 
-  elements.notificationMessage.textContent =
-    "Descanso finalizado. Próxima série.";
-
+  announce("Descanso finalizado. Próxima série.");
   showToast("Descanso finalizado.");
 }
 
@@ -982,12 +1064,15 @@ function playAlertSound() {
       return;
     }
 
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
+    const oscillator =
+      audioContext.createOscillator();
 
-    oscillator.type = "square";
+    const gain =
+      audioContext.createGain();
+
+    oscillator.type = "sine";
     oscillator.frequency.setValueAtTime(
-      880,
+      740,
       audioContext.currentTime
     );
 
@@ -997,22 +1082,24 @@ function playAlertSound() {
     );
 
     gain.gain.exponentialRampToValueAtTime(
-      0.18,
-      audioContext.currentTime + 0.015
+      0.16,
+      audioContext.currentTime + 0.02
     );
 
     gain.gain.exponentialRampToValueAtTime(
       0.0001,
-      audioContext.currentTime + 0.35
+      audioContext.currentTime + 0.34
     );
 
     oscillator.connect(gain);
     gain.connect(audioContext.destination);
 
     oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.35);
+    oscillator.stop(
+      audioContext.currentTime + 0.34
+    );
   } catch {
-    // Notificação e vibração continuam sendo tentadas.
+    // Notificação e vibração continuam disponíveis.
   }
 }
 
@@ -1021,7 +1108,7 @@ function vibrateDevice() {
     state.vibration &&
     "vibrate" in navigator
   ) {
-    navigator.vibrate([180, 100, 180]);
+    navigator.vibrate([180, 90, 180]);
   }
 }
 
@@ -1034,13 +1121,6 @@ async function notifyRestFinished() {
     return;
   }
 
-  const options = {
-    body: "O descanso terminou. Próxima série.",
-    tag: "meu-treino-descanso",
-    renotify: true,
-    silent: false
-  };
-
   try {
     if ("serviceWorker" in navigator) {
       const registration =
@@ -1048,13 +1128,17 @@ async function notifyRestFinished() {
 
       await registration.showNotification(
         "Descanso finalizado",
-        options
+        {
+          body: "A próxima série está pronta.",
+          tag: "meu-treino-rest",
+          renotify: true,
+          silent: false
+        }
       );
     } else {
-      new Notification(
-        "Descanso finalizado",
-        options
-      );
+      new Notification("Descanso finalizado", {
+        body: "A próxima série está pronta."
+      });
     }
   } catch {
     // O sistema pode bloquear notificações.
@@ -1063,7 +1147,7 @@ async function notifyRestFinished() {
 
 async function requestNotifications() {
   if (!("Notification" in window)) {
-    showToast("Este navegador não oferece notificações.");
+    showToast("Notificações não são suportadas.");
     return;
   }
 
@@ -1072,20 +1156,19 @@ async function requestNotifications() {
       await Notification.requestPermission();
 
     if (permission === "granted") {
-      showToast("Notificações permitidas.");
-      elements.notificationMessage.textContent =
-        "Notificações de descanso ativadas.";
+      showToast("Notificações ativadas.");
+      announce("Notificações ativadas.");
     } else {
       showToast("Notificações não foram permitidas.");
     }
   } catch {
-    showToast("Não foi possível solicitar permissão.");
+    showToast("Não foi possível ativar notificações.");
   }
 }
 
-function resetSelectedDay() {
+function resetDay() {
   const confirmed = window.confirm(
-    `Redefinir todo o progresso de ${DAY_LABELS[state.selectedDay]}?`
+    `Redefinir o progresso de ${DAY_LABELS[state.selectedDay]}?`
   );
 
   if (!confirmed) {
@@ -1095,7 +1178,11 @@ function resetSelectedDay() {
   const workout = getWorkout(state.selectedDay);
 
   workout.exercises.forEach((exercise, exerciseIndex) => {
-    for (let setIndex = 0; setIndex < exercise.sets; setIndex++) {
+    for (
+      let setIndex = 0;
+      setIndex < exercise.sets;
+      setIndex++
+    ) {
       delete state.completed[
         getSetKey(
           state.selectedDay,
@@ -1110,25 +1197,7 @@ function resetSelectedDay() {
 
   saveState();
   render();
-  showToast("Progresso do dia redefinido.");
-}
-
-function applySavedTheme() {
-  const theme = localStorage.getItem(THEME_KEY);
-
-  if (theme === "light" || theme === "dark") {
-    document.documentElement.dataset.theme = theme;
-  }
-}
-
-function toggleTheme() {
-  const current =
-    document.documentElement.dataset.theme || "dark";
-
-  const next = current === "dark" ? "light" : "dark";
-
-  document.documentElement.dataset.theme = next;
-  localStorage.setItem(THEME_KEY, next);
+  showToast("Progresso redefinido.");
 }
 
 function saveNotes() {
@@ -1138,7 +1207,35 @@ function saveNotes() {
   saveState();
 }
 
-function restoreTimerAfterReload() {
+function toggleTheme() {
+  const current =
+    document.documentElement.dataset.theme || "light";
+
+  const next =
+    current === "light" ? "dark" : "light";
+
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem(THEME_KEY, next);
+
+  elements.themeIcon.textContent =
+    next === "dark" ? "☾" : "☼";
+}
+
+function restoreTheme() {
+  const saved =
+    localStorage.getItem(THEME_KEY);
+
+  const theme =
+    saved === "dark" || saved === "light"
+      ? saved
+      : "light";
+
+  document.documentElement.dataset.theme = theme;
+  elements.themeIcon.textContent =
+    theme === "dark" ? "☾" : "☼";
+}
+
+function restoreTimer() {
   if (state.timer.status !== "running") {
     renderTimer();
     return;
@@ -1156,9 +1253,6 @@ function restoreTimerAfterReload() {
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) {
-    elements.notificationMessage.textContent =
-      "Service Worker não disponível neste navegador.";
-
     return;
   }
 
@@ -1166,30 +1260,23 @@ function registerServiceWorker() {
     .register("./service-worker.js", {
       scope: "./"
     })
-    .then(() => {
-      elements.notificationMessage.textContent =
-        "Aplicativo pronto. Notificações dependem da permissão do sistema.";
-    })
     .catch((error) => {
-      console.error(
-        "Erro ao registrar o Service Worker:",
+      console.warn(
+        "Service Worker não registrado:",
         error
       );
-
-      elements.notificationMessage.textContent =
-        "O app funciona, mas o Service Worker não pôde ser registrado.";
     });
 }
 
 function setupEvents() {
-  elements.resetDayButton.addEventListener(
+  elements.themeToggle.addEventListener(
     "click",
-    resetSelectedDay
+    toggleTheme
   );
 
-  elements.startTimerButton.addEventListener(
+  elements.resetDayButton.addEventListener(
     "click",
-    startTimer
+    resetDay
   );
 
   elements.pauseTimerButton.addEventListener(
@@ -1232,11 +1319,6 @@ function setupEvents() {
     saveNotes
   );
 
-  elements.themeToggle.addEventListener(
-    "click",
-    toggleTheme
-  );
-
   document.addEventListener(
     "visibilitychange",
     () => {
@@ -1270,11 +1352,11 @@ function setupEvents() {
 }
 
 function init() {
-  applySavedTheme();
+  restoreTheme();
   loadState();
   setupEvents();
   render();
-  restoreTimerAfterReload();
+  restoreTimer();
   registerServiceWorker();
 }
 

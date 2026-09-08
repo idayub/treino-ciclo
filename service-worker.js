@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "meu-treino-github-pages-v1";
+const CACHE_NAME = "meu-treino-liquid-glass-v2";
 
 const APP_FILES = [
   "./",
@@ -48,10 +48,10 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          const responseClone = response.clone();
+          const copy = response.clone();
 
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(event.request, copy);
           });
 
           return response;
@@ -65,28 +65,27 @@ self.addEventListener("fetch", (event) => {
   }
 
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
+    caches.match(event.request).then((cached) => {
+      if (cached) {
+        return cached;
       }
 
       return fetch(event.request)
-        .then((networkResponse) => {
+        .then((response) => {
           if (
-            !networkResponse ||
-            networkResponse.status !== 200
+            !response ||
+            response.status !== 200
           ) {
-            return networkResponse;
+            return response;
           }
 
-          const responseClone =
-            networkResponse.clone();
+          const copy = response.clone();
 
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseClone);
+            cache.put(event.request, copy);
           });
 
-          return networkResponse;
+          return response;
         })
         .catch(() => {
           return caches.match("./index.html");
@@ -104,8 +103,8 @@ self.addEventListener("notificationclick", (event) => {
         type: "window",
         includeUncontrolled: true
       })
-      .then((clientList) => {
-        for (const client of clientList) {
+      .then((clients) => {
+        for (const client of clients) {
           if ("focus" in client) {
             return client.focus();
           }
