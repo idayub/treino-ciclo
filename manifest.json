@@ -1,0 +1,13 @@
+{
+  "name": "Meu Treino",
+  "short_name": "Meu Treino",
+  "description": "Aplicativo mobile para acompanhar séries e descansos.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#111827",
+  "lang": "pt-BR",
+  "orientation": "portrait",
+  "icons": []
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
+  <meta
+    name="theme-color"
+    content="#111827"
+  >
+
+  <meta
+    name="description"
+    content="Aplicativo mobile para acompanhamento de treinos e descanso."
+  >
+
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./styles.css">
+
+  <title>Meu Treino</title>
+</head>
+
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">TREINO AVANÇADO</p>
+      <h1>Meu Treino</h1>
+    </div>
+
+    <button
+      id="themeToggle"
+      class="icon-button"
+      type="button"
+      aria-label="Alternar entre modo claro e escuro"
+      title="Alternar tema"
+    >
+      ◐
+    </button>
+  </header>
+
+  <main class="app-container">
+    <section class="summary-card" aria-labelledby="progressTitle">
+      <div>
+        <p id="progressTitle" class="eyebrow">PROGRESSO DO DIA</p>
+        <strong id="dayProgressText">0 de 0 séries concluídas</strong>
+      </div>
+
+      <div
+        id="progressRing"
+        class="progress-ring"
+        aria-label="Progresso do treino"
+      >
+        <span id="progressPercent">0%</span>
+      </div>
+    </section>
+
+    <nav
+      id="dayTabs"
+      class="day-tabs"
+      aria-label="Dias da semana"
+    ></nav>
+
+    <section class="workout-heading">
+      <div>
+        <p class="eyebrow">TREINO SELECIONADO</p>
+        <h2 id="selectedDayTitle">Segunda-feira</h2>
+      </div>
+
+      <button
+        id="resetDayButton"
+        class="secondary-button"
+        type="button"
+      >
+        Redefinir dia
+      </button>
+    </section>
+
+    <section
+      id="restBanner"
+      class="rest-banner hidden"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <div>
+        <span class="eyebrow">DESCANSO</span>
+        <strong id="timerDisplay">00:00</strong>
+        <span id="timerStatus">Pronto para iniciar</span>
+      </div>
+
+      <div class="timer-actions">
+        <button
+          id="startTimerButton"
+          class="primary-button"
+          type="button"
+        >
+          Iniciar
+        </button>
+
+        <button
+          id="pauseTimerButton"
+          class="secondary-button"
+          type="button"
+        >
+          Pausar
+        </button>
+
+        <button
+          id="resumeTimerButton"
+          class="secondary-button"
+          type="button"
+        >
+          Retomar
+        </button>
+
+        <button
+          id="restartTimerButton"
+          class="secondary-button"
+          type="button"
+        >
+          Reiniciar
+        </button>
+
+        <button
+          id="skipTimerButton"
+          class="danger-button"
+          type="button"
+        >
+          Pular descanso
+        </button>
+      </div>
+    </section>
+
+    <div
+      id="notificationMessage"
+      class="info-message"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <section
+      id="workoutList"
+      class="workout-list"
+      aria-label="Lista de exercícios"
+    ></section>
+
+    <section class="notes-card">
+      <label for="dayNotes">Anotações do dia</label>
+
+      <textarea
+        id="dayNotes"
+        rows="4"
+        placeholder="Ex.: carga usada, observações da execução..."
+      ></textarea>
+    </section>
+
+    <section class="settings-card">
+      <h2>Configurações</h2>
+
+      <div class="setting-row">
+        <span>
+          Notificações de descanso
+          <small>Úteis quando o app estiver em segundo plano.</small>
+        </span>
+
+        <button
+          id="notificationPermissionButton"
+          class="secondary-button"
+          type="button"
+        >
+          Permitir
+        </button>
+      </div>
+
+      <label class="setting-row checkbox-row">
+        <span>
+          Vibração ao terminar
+          <small>Funciona apenas em dispositivos compatíveis.</small>
+        </span>
+
+        <input
+          id="vibrationToggle"
+          type="checkbox"
+          checked
+        >
+      </label>
+
+      <p class="limitations">
+        O navegador ou o sistema operacional pode bloquear o som com a tela
+        bloqueada ou durante a economia de bateria. Nesses casos, o app tenta
+        usar notificação e vibração.
+      </p>
+    </section>
+  </main>
+
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+  ></div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
