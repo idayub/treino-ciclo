@@ -15,7 +15,7 @@
 
   <meta
     name="description"
-    content="Acompanhe seus treinos, séries e descansos."
+    content="Aplicativo para acompanhamento de treinos, séries e descansos."
   >
 
   <link rel="manifest" href="./manifest.json">
@@ -69,7 +69,11 @@
       <section class="hero-card glass">
         <div class="hero-copy">
           <p class="eyebrow">SESSÃO ATUAL</p>
-          <h2 id="selectedDayTitle">Peito, ombros e tríceps</h2>
+
+          <h2 id="selectedDayTitle">
+            Treino A — Peito, ombros e tríceps
+          </h2>
+
           <p id="sessionSubtitle">
             Concentre-se em uma série de cada vez.
           </p>
@@ -92,21 +96,30 @@
 
       <section class="progress-summary glass">
         <div class="summary-item">
-          <span class="summary-value" id="dayProgressText">0/0</span>
+          <span id="dayProgressText" class="summary-value">
+            0/0
+          </span>
+
           <span class="summary-label">séries</span>
         </div>
 
         <div class="summary-divider"></div>
 
         <div class="summary-item">
-          <span class="summary-value" id="exerciseProgressText">0/0</span>
+          <span id="exerciseProgressText" class="summary-value">
+            0/0
+          </span>
+
           <span class="summary-label">exercícios</span>
         </div>
 
         <div class="summary-divider"></div>
 
         <div class="summary-item">
-          <span class="summary-value" id="sessionStatus">Pronto</span>
+          <span id="sessionStatus" class="summary-value">
+            Pronto
+          </span>
+
           <span class="summary-label">status</span>
         </div>
       </section>
@@ -120,24 +133,27 @@
         <div class="timer-topline">
           <div>
             <p class="eyebrow">DESCANSO</p>
+
             <p id="timerExercise" class="timer-exercise">
               Próxima série
             </p>
           </div>
 
           <span id="timerStateBadge" class="timer-badge">
-            Ativo
+            Pronto
           </span>
         </div>
 
-        <div id="timerDisplay" class="timer-display">02:00</div>
+        <div id="timerDisplay" class="timer-display">
+          00:00
+        </div>
 
         <div class="timer-progress-track">
           <div id="timerProgress" class="timer-progress"></div>
         </div>
 
         <p id="timerMessage" class="timer-message">
-          Recupere-se. A próxima série vem logo.
+          Prepare-se para a próxima série.
         </p>
 
         <div class="timer-actions">
@@ -170,7 +186,7 @@
             class="glass-button accent-button"
             type="button"
           >
-            Pular
+            Pular descanso
           </button>
         </div>
       </section>
