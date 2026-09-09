@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "meu-treino-liquid-glass-v2";
+const CACHE_NAME = "meu-treino-liquid-glass-v5";
 
 const APP_FILES = [
   "./",

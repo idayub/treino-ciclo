@@ -1,6 +1,26 @@
 "use strict";
 
-const STORAGE_KEY = "meu-treino-liquid-glass-v3";
+/*
+  MEU TREINO
+
+  Este arquivo contém:
+  - Treinos corretos da planilha original;
+  - Controle individual das séries;
+  - Descanso iniciado automaticamente ao concluir uma série;
+  - Temporizador baseado em timestamps reais;
+  - Persistência com localStorage;
+  - Notificações, vibração e som;
+  - Modo claro/escuro;
+  - Compatibilidade com GitHub Pages.
+
+  Para alterar os treinos, edite apenas o objeto WORKOUTS.
+*/
+
+/* =========================================================
+   CONFIGURAÇÕES
+========================================================= */
+
+const STORAGE_KEY = "meu-treino-original-v5";
 const THEME_KEY = "meu-treino-theme";
 
 const DAYS = [
@@ -23,365 +43,353 @@ const DAY_LABELS = {
   domingo: "Domingo"
 };
 
+/* =========================================================
+   TREINOS CORRETOS
+========================================================= */
+
 const WORKOUTS = {
   segunda: {
-    title: "Treino A — Peito, ombros e tríceps",
-    subtitle: "Peitoral, tríceps e deltoides.",
+    title: "Peito, ombros e tríceps",
+    subtitle: "Empurradas fortes, controle e técnica.",
     exercises: [
       {
         name: "Supino reto com barra",
         sets: 4,
-        reps: "10",
-        rest: 120,
-        technique: "Série principal",
-        tip: "Controle a descida e mantenha os ombros estáveis."
+        reps: "1×5–8 + 3×8–10",
+        rest: 210,
+        technique: "Top set + back-off",
+        tip: "Faça 1 série pesada. Reduza 8–12% e faça 3 back-offs."
       },
       {
         name: "Supino inclinado com barra",
-        sets: 5,
+        sets: 4,
         reps: "6–12",
-        rest: 120,
+        rest: 150,
         technique: "Pirâmide crescente",
-        tip: "Aumente a carga sem perder a amplitude."
-      },
-      {
-        name: "Crossover na polia",
-        sets: 3,
-        reps: "12",
-        rest: 120,
-        technique: "Contração máxima",
-        tip: "Segure brevemente na contração do peitoral."
+        tip: "Aumente a carga gradualmente sem perder a técnica."
       },
       {
         name: "Supino sentado na máquina",
         sets: 3,
-        reps: "12",
+        reps: "8–15",
         rest: 120,
-        technique: "Máquina",
-        tip: "Mantenha o movimento controlado."
+        technique: "Pausa no alongamento",
+        tip: "Segure 2 segundos na posição alongada."
       },
       {
-        name: "Flexão",
+        name: "Crossover na polia",
         sets: 3,
-        reps: "Até a falha",
-        rest: 120,
-        technique: "Falha técnica",
-        tip: "Pare quando não conseguir manter a execução correta."
+        reps: "12–20",
+        rest: 75,
+        technique: "Drop set na última",
+        tip: "Reduza 20–30% da carga e continue."
       },
       {
-        name: "Tríceps testa com barra",
-        sets: 3,
-        reps: "12",
-        rest: 120,
-        technique: "Excêntrica controlada",
-        tip: "Desça o peso lentamente e mantenha os cotovelos estáveis."
+        name: "Elevação lateral",
+        sets: 5,
+        reps: "10–20",
+        rest: 75,
+        technique: "Pausa + drop set",
+        tip: "Pause no topo. Faça drop set apenas na última."
       },
       {
-        name: "Extensão de tríceps acima da cabeça",
+        name: "Tríceps testa",
         sets: 3,
         reps: "8–12",
         rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Alongue o tríceps sem forçar os cotovelos."
+        technique: "Excêntrica de 3 s",
+        tip: "Controle a descida durante aproximadamente 3 segundos."
       },
       {
-        name: "Elevação lateral com halteres",
-        sets: 5,
-        reps: "4–12",
-        rest: 120,
-        technique: "Controle técnico",
-        tip: "Evite balançar o tronco."
-      },
-      {
-        name: "Abdominal na polia",
-        sets: 4,
-        reps: "12",
-        rest: 120,
-        technique: "Contração abdominal",
-        tip: "Aproxime as costelas da pelve."
-      },
-      {
-        name: "Esteira",
-        sets: 1,
-        reps: "Cardio",
-        rest: 0,
-        technique: "Cardio",
-        tip: "Realize conforme sua programação."
+        name: "Tríceps acima da cabeça na polia",
+        sets: 3,
+        reps: "10–15",
+        rest: 105,
+        technique: "Rest-pause na última",
+        tip: "Descanse 15–20 s e faça mais 3–5 repetições."
       }
     ]
   },
 
   terca: {
-    title: "Treino B — Costas, bíceps e panturrilhas",
-    subtitle: "Costas, braços e panturrilhas.",
+    title: "Costas, bíceps e panturrilhas",
+    subtitle: "Puxe com controle e construa densidade.",
     exercises: [
       {
-        name: "Puxada alta com pegada fechada",
+        name: "Puxada alta, pegada fechada",
         sets: 4,
         reps: "6–12",
-        rest: 120,
-        technique: "Falha técnica",
-        tip: "Execute até a falha técnica sem perder o controle."
+        rest: 150,
+        technique: "Progressão dupla",
+        tip: "Ao fazer 12 repetições em todas, aumente a carga."
       },
       {
-        name: "Remada na barra T",
-        sets: 6,
-        reps: "4–10",
-        rest: 120,
-        technique: "Série pesada",
-        tip: "Mantenha o tronco estável e puxe com as costas."
+        name: "Remada T",
+        sets: 5,
+        reps: "1×6–8 + 4×8–10",
+        rest: 180,
+        technique: "Top set + back-off",
+        tip: "Faça uma série pesada e depois reduza a carga."
       },
       {
-        name: "Remada serrote com halter",
+        name: "Remada unilateral",
+        sets: 4,
+        reps: "8–12 por lado",
+        rest: 105,
+        technique: "Pausa na contração",
+        tip: "Segure 1 segundo no topo."
+      },
+      {
+        name: "Remada com apoio no peito",
+        sets: 3,
+        reps: "10–15",
+        rest: 120,
+        technique: "Drop set na última",
+        tip: "Reduza a carga sem perder o controle."
+      },
+      {
+        name: "Face pull",
+        sets: 3,
+        reps: "15–25",
+        rest: 75,
+        technique: "Contração de 1–2 s",
+        tip: "Use carga moderada e movimento preciso."
+      },
+      {
+        name: "Rosca direta com barra",
         sets: 4,
         reps: "6–10",
         rest: 120,
         technique: "Pirâmide crescente",
-        tip: "Traga o cotovelo para trás sem girar o tronco."
+        tip: "Não balance o tronco."
       },
       {
-        name: "Remada alta com barra",
-        sets: 4,
-        reps: "8–12",
-        rest: 120,
-        technique: "Drop set na última",
-        tip: "Na última série, reduza aproximadamente 50% da carga."
-      },
-      {
-        name: "Rosca direta com barra",
+        name: "Rosca martelo",
         sets: 3,
-        reps: "12",
-        rest: 120,
-        technique: "Execução controlada",
-        tip: "Não use balanço para levantar a barra."
+        reps: "8–15",
+        rest: 105,
+        technique: "Rest-pause na última",
+        tip: "Descanse 15–20 s e faça mais 3–5 repetições."
       },
       {
-        name: "Rosca martelo com halteres",
-        sets: 3,
-        reps: "8–12",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Mantenha os punhos neutros."
-      },
-      {
-        name: "Panturrilha sentada na máquina",
-        sets: 6,
-        reps: "10–15",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Alongue embaixo e contraia no topo."
-      },
-      {
-        name: "Esteira",
-        sets: 1,
-        reps: "Cardio",
-        rest: 0,
-        technique: "Cardio",
-        tip: "Realize conforme sua programação."
+        name: "Panturrilha sentada",
+        sets: 5,
+        reps: "10–20",
+        rest: 90,
+        technique: "Alongamento + contração",
+        tip: "Faça 2 s de alongamento embaixo e 1 s no topo."
       }
     ]
   },
 
   quarta: {
-    title: "Treino E — Braços, deltoide posterior e panturrilhas",
-    subtitle: "Volume específico para braços e ombros.",
+    title: "Braços, deltoide posterior e panturrilhas",
+    subtitle: "Volume de qualidade para braços e ombros.",
     exercises: [
       {
-        name: "Rosca martelo com halteres",
-        sets: 3,
-        reps: "12",
-        rest: 120,
-        technique: "Rest-pause",
-        tip: "Descanse 10 segundos e faça mais 3–4 repetições."
-      },
-      {
-        name: "Rosca inclinada sentada com halteres",
-        sets: 3,
+        name: "Rosca inclinada com halteres",
+        sets: 4,
         reps: "8–12",
         rest: 120,
+        technique: "Excêntrica de 3 s",
+        tip: "Controle a descida."
+      },
+      {
+        name: "Rosca concentrada",
+        sets: 3,
+        reps: "10–15",
+        rest: 90,
+        technique: "Pico + drop set",
+        tip: "Segure 2 s no pico. Faça drop set na última."
+      },
+      {
+        name: "Tríceps na polia",
+        sets: 4,
+        reps: "8–15",
+        rest: 105,
         technique: "Pirâmide crescente",
-        tip: "Controle a descida e mantenha os braços alinhados."
+        tip: "Mantenha os ombros estáveis."
       },
       {
-        name: "Rosca concentrada com halter",
+        name: "Tríceps coice na polia",
         sets: 3,
-        reps: "12",
-        rest: 120,
-        technique: "Pico de 2 segundos",
-        tip: "Segure 2 segundos no ponto máximo da contração."
-      },
-      {
-        name: "Tríceps coice no cabo",
-        sets: 3,
-        reps: "8–12",
-        rest: 120,
-        technique: "Drop set na última",
-        tip: "Reduza 50% da carga e faça mais 10 repetições."
+        reps: "12–20",
+        rest: 75,
+        technique: "Contração máxima",
+        tip: "Mantenha o cotovelo fixo."
       },
       {
         name: "Tríceps testa com halteres",
         sets: 3,
-        reps: "12",
+        reps: "10–15",
         rest: 120,
-        technique: "3 s descida · 1 s pausa",
-        tip: "Respeite a cadência em todas as repetições."
+        technique: "Myo-reps",
+        tip: "Faça a série principal, descanse 15 s e complete mini-séries."
       },
       {
         name: "Elevação posterior com halteres",
         sets: 4,
-        reps: "10–15",
-        rest: 120,
+        reps: "12–20",
+        rest: 90,
         technique: "Drop set na última",
-        tip: "Na última série, diminua o peso e continue."
+        tip: "Não use balanço."
+      },
+      {
+        name: "Crucifixo inverso na máquina",
+        sets: 3,
+        reps: "12–20",
+        rest: 90,
+        technique: "Pausa de 2 s",
+        tip: "Segure no pico da contração."
       },
       {
         name: "Face pull",
-        sets: 3,
-        reps: "20",
-        rest: 120,
-        technique: "Cotovelos altos",
-        tip: "Puxe em direção à testa."
+        sets: 2,
+        reps: "20–25",
+        rest: 75,
+        technique: "Controle técnico",
+        tip: "Use carga leve e movimento preciso."
       },
       {
-        name: "Crucifixo invertido na máquina",
-        sets: 3,
-        reps: "15",
-        rest: 120,
-        technique: "Pico de 2 segundos",
-        tip: "Segure 2 segundos na contração."
-      },
-      {
-        name: "Panturrilha unilateral na máquina",
+        name: "Panturrilha unilateral",
         sets: 6,
-        reps: "10–15",
-        rest: 120,
-        technique: "Pirâmide crescente",
+        reps: "10–15 por lado",
+        rest: 75,
+        technique: "Rest-pause na última",
         tip: "Faça amplitude completa em cada lado."
-      },
-      {
-        name: "Esteira",
-        sets: 1,
-        reps: "Cardio",
-        rest: 0,
-        technique: "Cardio",
-        tip: "Realize conforme sua programação."
       }
     ]
   },
 
   quinta: {
-    title: "Treino D — Pernas e panturrilhas",
-    subtitle: "Quadríceps, posteriores, glúteos e panturrilhas.",
+    title: "Pernas e panturrilhas",
+    subtitle: "Força, amplitude e execução limpa.",
     exercises: [
       {
-        name: "Agachamento com barra",
+        name: "Agachamento livre",
         sets: 4,
-        reps: "8–12",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Mantenha o tronco firme e desça com controle."
+        reps: "1×6–8 + 3×8–10",
+        rest: 240,
+        technique: "Top set + back-off",
+        tip: "Sem falha absoluta. Priorize a técnica."
       },
       {
         name: "Leg press 45°",
         sets: 4,
         reps: "8–15",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Não retire a lombar do apoio."
+        rest: 180,
+        technique: "Pirâmide + rest-pause",
+        tip: "Rest-pause leve somente na última."
       },
       {
-        name: "Cadeira extensora",
+        name: "Terra romeno",
         sets: 4,
-        reps: "8–12",
-        rest: 120,
-        technique: "Drop set",
-        tip: "Faça o drop set na última série."
+        reps: "6–10",
+        rest: 180,
+        technique: "Excêntrica de 3 s",
+        tip: "Mantenha a coluna neutra e RIR 1–2."
       },
       {
         name: "Mesa flexora",
         sets: 4,
-        reps: "8–12",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Controle a volta do movimento."
+        reps: "8–15",
+        rest: 105,
+        technique: "Drop set duplo",
+        tip: "Use o drop duplo somente na última série."
       },
       {
-        name: "Levantamento terra romeno",
+        name: "Cadeira extensora",
         sets: 4,
-        reps: "6–12",
-        rest: 120,
-        technique: "Stiff + pirâmide",
-        tip: "Mantenha a coluna neutra."
+        reps: "10–20",
+        rest: 90,
+        technique: "Drop set na última",
+        tip: "Reduza 25–30% da carga e continue."
       },
       {
-        name: "Panturrilha em pé na máquina",
-        sets: 6,
-        reps: "10–15",
-        rest: 120,
-        technique: "Controle de amplitude",
-        tip: "Pause no alongamento e no topo."
+        name: "Panturrilha em pé",
+        sets: 5,
+        reps: "8–15",
+        rest: 105,
+        technique: "Rest-pause na última",
+        tip: "Faça 2 s de alongamento e 1 s no topo."
       }
     ]
   },
 
   sexta: {
-    title: "Treino C — Ombros e abdômen",
-    subtitle: "Deltoides, core e condicionamento.",
+    title: "Ombros e abdômen",
+    subtitle: "Deltoides fortes e core estável.",
     exercises: [
       {
         name: "Desenvolvimento com barra",
         sets: 4,
+        reps: "1×5–8 + 3×8–10",
+        rest: 180,
+        technique: "Top set + back-off",
+        tip: "Sem falha absoluta."
+      },
+      {
+        name: "Desenvolvimento na máquina",
+        sets: 3,
         reps: "8–12",
-        rest: 120,
-        technique: "Pirâmide crescente",
-        tip: "Mantenha o abdômen contraído."
+        rest: 150,
+        technique: "Falha controlada",
+        tip: "Última série em RIR 0–1 se não houver dor."
       },
       {
-        name: "Elevação lateral com halteres",
-        sets: 6,
-        reps: "4–12",
-        rest: 120,
-        technique: "Controle técnico",
-        tip: "Evite impulso e mantenha os ombros baixos."
+        name: "Elevação lateral na máquina ou polia",
+        sets: 5,
+        reps: "12–20",
+        rest: 75,
+        technique: "Pausa + drop set",
+        tip: "Pause no topo. Faça drop set na última."
       },
       {
-        name: "Elevação frontal com halteres",
+        name: "Elevação lateral inclinada",
+        sets: 3,
+        reps: "12–20",
+        rest: 75,
+        technique: "Parciais alongadas",
+        tip: "Faça parciais somente após as repetições completas."
+      },
+      {
+        name: "Crucifixo inverso na máquina",
+        sets: 3,
+        reps: "15–25",
+        rest: 75,
+        technique: "Pausa de 2 s",
+        tip: "Segure no pico da contração."
+      },
+      {
+        name: "Abdominal na polia",
         sets: 4,
-        reps: "8–10",
-        rest: 120,
-        technique: "Alternada",
-        tip: "Alterne os braços e controle a descida."
+        reps: "10–15",
+        rest: 90,
+        technique: "Progressão de carga",
+        tip: "Aproxime as costelas da pelve."
       },
       {
-        name: "Abdominal infra no banco declinado",
+        name: "Abdominal infra declinado",
         sets: 4,
-        reps: "12",
-        rest: 120,
-        technique: "Controle pélvico",
-        tip: "Faça retroversão pélvica no final."
+        reps: "10–20",
+        rest: 90,
+        technique: "Retroversão pélvica",
+        tip: "Faça o movimento sem balançar as pernas."
       },
       {
         name: "Prancha",
         sets: 4,
-        reps: "Tempo controlado",
-        rest: 120,
-        technique: "Isometria",
-        tip: "Mantenha quadril e coluna alinhados."
-      },
-      {
-        name: "Esteira",
-        sets: 1,
-        reps: "Cardio",
-        rest: 0,
-        technique: "Cardio",
-        tip: "Realize conforme sua programação."
+        reps: "30–60 segundos",
+        rest: 90,
+        technique: "Progressão de tempo",
+        tip: "Mantenha o corpo alinhado."
       }
     ]
   },
 
   sabado: {
     title: "Descanso ou cardio leve",
-    subtitle: "Recuperação ativa.",
+    subtitle: "Recupere-se para treinar melhor.",
     exercises: []
   },
 
@@ -392,11 +400,16 @@ const WORKOUTS = {
   }
 };
 
+/* =========================================================
+   ESTADO DO APLICATIVO
+========================================================= */
+
 const state = {
   selectedDay: "segunda",
   completed: {},
   notes: {},
   vibration: true,
+
   timer: {
     status: "idle",
     duration: 0,
@@ -406,41 +419,60 @@ const state = {
   }
 };
 
-const $ = (selector) => document.querySelector(selector);
+/* =========================================================
+   ELEMENTOS DA INTERFACE
+========================================================= */
+
+const $ = (selector) => {
+  return document.querySelector(selector);
+};
 
 const elements = {
   tabs: $("#dayTabs"),
   selectedDayTitle: $("#selectedDayTitle"),
   sessionSubtitle: $("#sessionSubtitle"),
+
   progressRing: $("#progressRing"),
   progressPercent: $("#progressPercent"),
   dayProgressText: $("#dayProgressText"),
   exerciseProgressText: $("#exerciseProgressText"),
   sessionStatus: $("#sessionStatus"),
+
   workoutList: $("#workoutList"),
+  resetDayButton: $("#resetDayButton"),
+  dayNotes: $("#dayNotes"),
+
   timerCard: $("#timerCard"),
   timerExercise: $("#timerExercise"),
   timerStateBadge: $("#timerStateBadge"),
   timerDisplay: $("#timerDisplay"),
   timerProgress: $("#timerProgress"),
   timerMessage: $("#timerMessage"),
+
   pauseTimerButton: $("#pauseTimerButton"),
   resumeTimerButton: $("#resumeTimerButton"),
   restartTimerButton: $("#restartTimerButton"),
   skipTimerButton: $("#skipTimerButton"),
-  resetDayButton: $("#resetDayButton"),
-  dayNotes: $("#dayNotes"),
+
   vibrationToggle: $("#vibrationToggle"),
-  notificationPermissionButton: $("#notificationPermissionButton"),
+  notificationPermissionButton: $(
+    "#notificationPermissionButton"
+  ),
+
   notificationMessage: $("#notificationMessage"),
+  toast: $("#toast"),
+
   themeToggle: $("#themeToggle"),
-  themeIcon: $("#themeIcon"),
-  toast: $("#toast")
+  themeIcon: $("#themeIcon")
 };
 
 let timerInterval = null;
 let audioContext = null;
 let toastTimeout = null;
+
+/* =========================================================
+   PERSISTÊNCIA
+========================================================= */
 
 function loadState() {
   try {
@@ -462,8 +494,8 @@ function loadState() {
         ...saved.timer
       };
     }
-  } catch {
-    showToast("Não foi possível restaurar os dados.");
+  } catch (error) {
+    console.warn("Não foi possível restaurar o estado:", error);
   }
 
   elements.vibrationToggle.checked = state.vibration;
@@ -476,10 +508,14 @@ function saveState() {
   );
 }
 
+/* =========================================================
+   FUNÇÕES DOS TREINOS
+========================================================= */
+
 function getWorkout(day = state.selectedDay) {
   return WORKOUTS[day] || {
     title: "Descanso",
-    subtitle: "",
+    subtitle: "Recuperação.",
     exercises: []
   };
 }
@@ -488,7 +524,7 @@ function getSetKey(day, exerciseIndex, setIndex) {
   return `${day}-${exerciseIndex}-${setIndex}`;
 }
 
-function isCompleted(day, exerciseIndex, setIndex) {
+function isSetCompleted(day, exerciseIndex, setIndex) {
   return Boolean(
     state.completed[
       getSetKey(day, exerciseIndex, setIndex)
@@ -500,7 +536,7 @@ function updateSet(
   day,
   exerciseIndex,
   setIndex,
-  value
+  completed
 ) {
   const key = getSetKey(
     day,
@@ -508,7 +544,7 @@ function updateSet(
     setIndex
   );
 
-  if (value) {
+  if (completed) {
     state.completed[key] = true;
   } else {
     delete state.completed[key];
@@ -533,24 +569,24 @@ function getProgress(day = state.selectedDay) {
       for (
         let setIndex = 0;
         setIndex < exercise.sets;
-        setIndex++
+        setIndex += 1
       ) {
         if (
-          isCompleted(
+          isSetCompleted(
             day,
             exerciseIndex,
             setIndex
           )
         ) {
-          completedSets++;
-          exerciseCompleted++;
+          completedSets += 1;
+          exerciseCompleted += 1;
         }
       }
 
       if (
         exerciseCompleted === exercise.sets
       ) {
-        completedExercises++;
+        completedExercises += 1;
       }
     }
   );
@@ -567,6 +603,10 @@ function getProgress(day = state.selectedDay) {
       : 0
   };
 }
+
+/* =========================================================
+   FORMATAÇÃO E ACESSIBILIDADE
+========================================================= */
 
 function formatTime(seconds) {
   const safeSeconds = Math.max(
@@ -589,10 +629,10 @@ function formatRest(seconds) {
 
   if (seconds >= 60) {
     const minutes = Math.floor(seconds / 60);
-    const remaining = seconds % 60;
+    const remainingSeconds = seconds % 60;
 
-    return remaining
-      ? `${minutes}m ${remaining}s`
+    return remainingSeconds
+      ? `${minutes}m ${remainingSeconds}s`
       : `${minutes} min`;
   }
 
@@ -608,25 +648,28 @@ function escapeHTML(value) {
     .replaceAll("'", "&#039;");
 }
 
+function announce(message) {
+  elements.notificationMessage.textContent = "";
+
+  window.setTimeout(() => {
+    elements.notificationMessage.textContent = message;
+  }, 20);
+}
+
 function showToast(message) {
   elements.toast.textContent = message;
   elements.toast.classList.add("visible");
 
   clearTimeout(toastTimeout);
 
-  toastTimeout = setTimeout(() => {
+  toastTimeout = window.setTimeout(() => {
     elements.toast.classList.remove("visible");
   }, 3200);
 }
 
-function announce(message) {
-  elements.notificationMessage.textContent = "";
-
-  setTimeout(() => {
-    elements.notificationMessage.textContent =
-      message;
-  }, 20);
-}
+/* =========================================================
+   RENDERIZAÇÃO
+========================================================= */
 
 function renderTabs() {
   elements.tabs.innerHTML = "";
@@ -692,17 +735,13 @@ function renderSummary() {
   `;
 
   if (!progress.totalSets) {
-    elements.sessionStatus.textContent =
-      "Descanso";
+    elements.sessionStatus.textContent = "Descanso";
   } else if (progress.percent === 100) {
-    elements.sessionStatus.textContent =
-      "Concluído";
+    elements.sessionStatus.textContent = "Concluído";
   } else if (progress.completedSets > 0) {
-    elements.sessionStatus.textContent =
-      "Em andamento";
+    elements.sessionStatus.textContent = "Em andamento";
   } else {
-    elements.sessionStatus.textContent =
-      "Pronto";
+    elements.sessionStatus.textContent = "Pronto";
   }
 }
 
@@ -742,12 +781,13 @@ function renderWorkout() {
 
       const completedCount = Array.from(
         { length: exercise.sets },
-        (_, setIndex) =>
-          isCompleted(
+        (_, setIndex) => {
+          return isSetCompleted(
             state.selectedDay,
             exerciseIndex,
             setIndex
-          )
+          );
+        }
       ).filter(Boolean).length;
 
       card.className = "exercise-card glass";
@@ -768,7 +808,7 @@ function renderWorkout() {
             <p class="exercise-meta">
               ${exercise.sets} séries ·
               ${escapeHTML(exercise.reps)} ·
-              ${formatRest(exercise.rest)}
+              descanso ${formatRest(exercise.rest)}
             </p>
           </div>
 
@@ -791,9 +831,9 @@ function renderWorkout() {
       for (
         let setIndex = 0;
         setIndex < exercise.sets;
-        setIndex++
+        setIndex += 1
       ) {
-        const checked = isCompleted(
+        const checked = isSetCompleted(
           state.selectedDay,
           exerciseIndex,
           setIndex
@@ -816,6 +856,11 @@ function renderWorkout() {
 
         checkbox.id =
           `set-${state.selectedDay}-${exerciseIndex}-${setIndex}`;
+
+        checkbox.setAttribute(
+          "aria-label",
+          `${exercise.name}, série ${setIndex + 1}`
+        );
 
         const label = document.createElement(
           "label"
@@ -842,13 +887,11 @@ function renderWorkout() {
         restButton.type = "button";
         restButton.className = "rest-button";
 
-        restButton.textContent =
-          exercise.rest > 0
-            ? `Descansar ${formatRest(exercise.rest)}`
-            : "Sem descanso";
+        restButton.textContent = exercise.rest > 0
+          ? `Descansar ${formatRest(exercise.rest)}`
+          : "Sem descanso";
 
-        restButton.disabled =
-          exercise.rest <= 0;
+        restButton.disabled = exercise.rest <= 0;
 
         restButton.setAttribute(
           "aria-label",
@@ -886,6 +929,10 @@ function renderWorkout() {
         restButton.addEventListener(
           "click",
           () => {
+            if (exercise.rest <= 0) {
+              return;
+            }
+
             prepareTimer(exercise);
             startTimer(false);
           }
@@ -936,27 +983,19 @@ function renderTimer() {
     `scaleX(${progress})`;
 
   if (timer.status === "running") {
-    elements.timerStateBadge.textContent =
-      "Ativo";
-
+    elements.timerStateBadge.textContent = "Ativo";
     elements.timerMessage.textContent =
       "Recupere-se. A próxima série vem logo.";
   } else if (timer.status === "paused") {
-    elements.timerStateBadge.textContent =
-      "Pausado";
-
+    elements.timerStateBadge.textContent = "Pausado";
     elements.timerMessage.textContent =
       "O descanso está pausado.";
   } else if (timer.status === "finished") {
-    elements.timerStateBadge.textContent =
-      "Finalizado";
-
+    elements.timerStateBadge.textContent = "Finalizado";
     elements.timerMessage.textContent =
       "Descanso finalizado. Próxima série.";
   } else {
-    elements.timerStateBadge.textContent =
-      "Pronto";
-
+    elements.timerStateBadge.textContent = "Pronto";
     elements.timerMessage.textContent =
       "Prepare-se para a próxima série.";
   }
@@ -980,6 +1019,10 @@ function render() {
   renderWorkout();
   renderTimer();
 }
+
+/* =========================================================
+   TEMPORIZADOR
+========================================================= */
 
 function prepareTimer(exercise) {
   state.timer = {
@@ -1008,6 +1051,11 @@ function startTimer(autoStarted = false) {
 
   state.timer.status = "running";
 
+  /*
+    O temporizador usa um horário final real.
+    Isso permite corrigir o tempo quando a aba
+    volta do segundo plano.
+  */
   state.timer.endAt =
     Date.now() +
     state.timer.remaining * 1000;
@@ -1016,11 +1064,11 @@ function startTimer(autoStarted = false) {
   startTimerLoop();
   renderTimer();
 
+  announce("Descanso iniciado.");
+
   if (!autoStarted) {
     showToast("Descanso iniciado.");
   }
-
-  announce("Descanso iniciado.");
 }
 
 function pauseTimer() {
@@ -1125,7 +1173,7 @@ function updateTimer() {
 function startTimerLoop() {
   stopTimerLoop();
 
-  timerInterval = setInterval(
+  timerInterval = window.setInterval(
     updateTimer,
     250
   );
@@ -1135,13 +1183,14 @@ function startTimerLoop() {
 
 function stopTimerLoop() {
   if (timerInterval !== null) {
-    clearInterval(timerInterval);
+    window.clearInterval(timerInterval);
     timerInterval = null;
   }
 }
 
 function finishTimer() {
   renderTimer();
+
   playAlertSound();
   vibrateDevice();
   notifyRestFinished();
@@ -1152,6 +1201,10 @@ function finishTimer() {
 
   showToast("Descanso finalizado.");
 }
+
+/* =========================================================
+   SOM, VIBRAÇÃO E NOTIFICAÇÕES
+========================================================= */
 
 function unlockAudio() {
   try {
@@ -1164,15 +1217,14 @@ function unlockAudio() {
     }
 
     if (!audioContext) {
-      audioContext =
-        new AudioContextClass();
+      audioContext = new AudioContextClass();
     }
 
     if (audioContext.state === "suspended") {
       audioContext.resume();
     }
-  } catch {
-    // Alguns navegadores bloqueiam áudio.
+  } catch (error) {
+    console.warn("Áudio indisponível:", error);
   }
 }
 
@@ -1222,8 +1274,8 @@ function playAlertSound() {
     oscillator.stop(
       audioContext.currentTime + 0.34
     );
-  } catch {
-    // Notificação e vibração continuam disponíveis.
+  } catch (error) {
+    console.warn("Não foi possível tocar o som:", error);
   }
 }
 
@@ -1258,7 +1310,7 @@ async function notifyRestFinished() {
         "Descanso finalizado",
         {
           body: "A próxima série está pronta.",
-          tag: "meu-treino-rest",
+          tag: "meu-treino-descanso",
           renotify: true,
           silent: false
         }
@@ -1271,15 +1323,18 @@ async function notifyRestFinished() {
         }
       );
     }
-  } catch {
-    // O sistema pode bloquear notificações.
+  } catch (error) {
+    console.warn(
+      "Não foi possível exibir a notificação:",
+      error
+    );
   }
 }
 
 async function requestNotifications() {
   if (!("Notification" in window)) {
     showToast(
-      "Notificações não são suportadas."
+      "Este navegador não oferece notificações."
     );
 
     return;
@@ -1297,12 +1352,16 @@ async function requestNotifications() {
         "Notificações não foram permitidas."
       );
     }
-  } catch {
+  } catch (error) {
     showToast(
       "Não foi possível ativar notificações."
     );
   }
 }
+
+/* =========================================================
+   RESET E ANOTAÇÕES
+========================================================= */
 
 function resetDay() {
   const confirmed = window.confirm(
@@ -1322,7 +1381,7 @@ function resetDay() {
       for (
         let setIndex = 0;
         setIndex < exercise.sets;
-        setIndex++
+        setIndex += 1
       ) {
         delete state.completed[
           getSetKey(
@@ -1340,7 +1399,7 @@ function resetDay() {
   saveState();
   render();
 
-  showToast("Progresso redefinido.");
+  showToast("Progresso do dia redefinido.");
 }
 
 function saveNotes() {
@@ -1349,6 +1408,10 @@ function saveNotes() {
 
   saveState();
 }
+
+/* =========================================================
+   TEMA
+========================================================= */
 
 function toggleTheme() {
   const current =
@@ -1392,6 +1455,10 @@ function restoreTheme() {
       : "☼";
 }
 
+/* =========================================================
+   RESTAURAÇÃO DO TIMER
+========================================================= */
+
 function restoreTimer() {
   if (state.timer.status !== "running") {
     renderTimer();
@@ -1407,6 +1474,10 @@ function restoreTimer() {
 
   startTimerLoop();
 }
+
+/* =========================================================
+   SERVICE WORKER
+========================================================= */
 
 function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) {
@@ -1424,6 +1495,10 @@ function registerServiceWorker() {
       );
     });
 }
+
+/* =========================================================
+   EVENTOS
+========================================================= */
 
 function setupEvents() {
   elements.themeToggle.addEventListener(
@@ -1456,11 +1531,10 @@ function setupEvents() {
     skipTimer
   );
 
-  elements.notificationPermissionButton
-    .addEventListener(
-      "click",
-      requestNotifications
-    );
+  elements.notificationPermissionButton.addEventListener(
+    "click",
+    requestNotifications
+  );
 
   elements.vibrationToggle.addEventListener(
     "change",
@@ -1508,6 +1582,10 @@ function setupEvents() {
     saveState
   );
 }
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
 
 function init() {
   restoreTheme();
